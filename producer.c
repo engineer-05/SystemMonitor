@@ -17,6 +17,7 @@ void *producer_thread(void *arg)
         if(ring_push(args->buffer,data) == 0)
         {
             printf("[Producer] push data\n");
+            fflush(stdout);
         }
 
         sleep(1);
