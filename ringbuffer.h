@@ -2,6 +2,7 @@
 #define RINGBUFFER_H
 
 #include "monitor.h"
+#include <pthread.h>
 
 #define BUFFER_SIZE 5
 
@@ -11,10 +12,17 @@ typedef struct
     int head;
     int tail;
     int count;
+
+    pthread_mutex_t mutex;
+    pthread_cond_t  cond_not_empty;
+    pthread_cond_t  cond_not_full;
 }RingBuffer;
 
 //初始化
 void ring_init(RingBuffer *rb);
+
+//销毁
+void ring_destroy(RingBuffer *rb);
 
 //写入
 int ring_push(RingBuffer *rb,MonitorData data);

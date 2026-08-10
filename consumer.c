@@ -1,7 +1,6 @@
 #include "consumer.h"
 
 #include <stdio.h>
-#include <unistd.h>
 
 void *consumer_thread(void *arg)
 {
@@ -11,16 +10,11 @@ void *consumer_thread(void *arg)
     {
         MonitorData data;
 
-        if(ring_pop(args->buffer,&data) == 0)
-        {
-            printf("[Consumer] CPU: %.2f%%, Mem: %.2f%%, Time: %ld\n",
-                   data.cpu_usage,data.mem_usage,data.timestamp);
-            fflush(stdout);
-        }
-        else
-        {
-            usleep(100000);
-        }
+        ring_pop(args->buffer,&data);
+
+        printf("[Consumer] CPU: %.2f%%, Mem: %.2f%%, Time: %ld\n",
+               data.cpu_usage,data.mem_usage,data.timestamp);
+        fflush(stdout);
     }
 
     return NULL;
