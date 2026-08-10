@@ -1,25 +1,24 @@
-#include "monitor.h"
+#include "producer.h"
+#include "ringbuffer.h"
 
 #include <stdio.h>
-#include <unistd.h>
-#include <time.h>
+#include <pthread.h>
+
 
 int main()
 {
+    RingBuffer buffer;
 
-    while(1)
-    {
-        MonitorData data;
-        data = collect_monitor_data();
+    ring_init(&buffer);
 
-        printf("====================\n");
-        printf("CPU Usage: %.2f %%\n",data.cpu_usage);
-        printf("Memory Usage: %.2f %%\n",data.mem_usage);
-        printf("Timestamp: %ld\n",data.timestamp);
-        printf("Time: %s",ctime(&data.timestamp));
+    ProducerArgs args;
+    args.buffer = &buffer;
 
-        sleep(1);
-    }
+    pthread_t tid;
+
+    pthread_create(&tid,NULL,producer_thread,&args);
+
+    pthread_join(tid,NULL);
 
     return 0;
 }
