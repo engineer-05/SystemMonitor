@@ -20,7 +20,7 @@ void *producer_thread(void *arg)
             fflush(stdout);
         }
 
-        sleep(1);
+        usleep(50000);
     }
 
     return NULL;

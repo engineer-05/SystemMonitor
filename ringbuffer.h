@@ -4,7 +4,7 @@
 #include "monitor.h"
 #include <pthread.h>
 
-#define BUFFER_SIZE 5
+#define BUFFER_SIZE 64
 
 typedef struct
 {

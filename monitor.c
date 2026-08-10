@@ -41,7 +41,7 @@ float get_cpu_usage()
     CPUTime end;
 
     start = get_cpu_time();
-    sleep(1);
+    usleep(50000);
     end = get_cpu_time();
 
     unsigned long long start_total =

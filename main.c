@@ -39,6 +39,7 @@ int main()
     pthread_join(consumer_tid,NULL);
 
     // ⑤ 清理
+    storage_flush(conn);
     storage_close(conn);
     ring_destroy(&buffer);
 
