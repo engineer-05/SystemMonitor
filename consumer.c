@@ -1,4 +1,5 @@
 #include "consumer.h"
+#include "storage.h"
 
 #include <stdio.h>
 
@@ -15,6 +16,8 @@ void *consumer_thread(void *arg)
         printf("[Consumer] CPU: %.2f%%, Mem: %.2f%%, Time: %ld\n",
                data.cpu_usage,data.mem_usage,data.timestamp);
         fflush(stdout);
+
+        storage_save(args->conn,&data);
     }
 
     return NULL;
