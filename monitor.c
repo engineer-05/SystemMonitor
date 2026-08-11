@@ -1,4 +1,5 @@
 #include "monitor.h"
+#include "config.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -41,7 +42,7 @@ float get_cpu_usage()
     CPUTime end;
 
     start = get_cpu_time();
-    usleep(50000);
+    usleep(CPU_INTERVAL_US);
     end = get_cpu_time();
 
     unsigned long long start_total =

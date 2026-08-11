@@ -16,6 +16,8 @@ typedef struct
     pthread_mutex_t mutex;
     pthread_cond_t  cond_not_empty;
     pthread_cond_t  cond_not_full;
+
+    int shutdown;                   // 退出标志，信号来时置1，唤醒等待的线程
 }RingBuffer;
 
 //初始化
@@ -23,6 +25,9 @@ void ring_init(RingBuffer *rb);
 
 //销毁
 void ring_destroy(RingBuffer *rb);
+
+//通知 buffer 退出，唤醒所有等待线程
+void ring_shutdown(RingBuffer *rb);
 
 //写入
 int ring_push(RingBuffer *rb,MonitorData data);
